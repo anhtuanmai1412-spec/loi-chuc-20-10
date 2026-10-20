@@ -1,0 +1,95 @@
+
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Chúc mừng 20/10 💖</title>
+<style>
+*{box-sizing:border-box}
+body{
+ margin:0;min-height:100vh;overflow:hidden;
+ display:grid;place-items:center;text-align:center;
+ font-family:Arial,sans-serif;color:white;
+ background:radial-gradient(circle,#79265f,#210e39 75%);
+}
+#app{padding:22px;max-width:750px;z-index:2}
+h1{font-size:clamp(32px,7vw,65px);color:#ffacd5;
+ text-shadow:0 0 22px #ff339d;animation:pop 1.2s}
+h2{font-size:clamp(22px,5vw,40px);color:#ffe6a3}
+#wish{font-size:clamp(19px,4vw,28px);line-height:1.7;
+ min-height:130px;padding:20px;animation:pop .8s}
+button{padding:14px 25px;border:0;border-radius:30px;
+ background:#ff65aa;color:white;font-size:17px;cursor:pointer}
+.flower{position:fixed;top:-40px;animation:fall linear forwards;
+ pointer-events:none}
+#start{margin-top:20px}
+@keyframes pop{from{opacity:0;transform:scale(.7) translateY(20px)}
+ to{opacity:1;transform:scale(1) translateY(0)}}
+@keyframes fall{to{transform:translateY(110vh) rotate(700deg);opacity:0}}
+</style>
+</head>
+<body>
+<div id="app">
+ <div style="font-size:45px">🌸 💐 🌸</div>
+ <h1>CHÚC MỪNG</h1>
+ <h2>NGÀY PHỤ NỮ VIỆT NAM<br>20/10 💖</h2>
+ <p id="intro">Một món quà nhỏ gửi đến những người phụ nữ tuyệt vời!</p>
+ <div id="wish">💌 Hãy nhấn nút bên dưới để nhận lời chúc nhé!</div>
+ <button id="start" onclick="begin()">💝 Mở lời chúc 💝</button>
+ <p id="count"></p>
+ <div id="end"></div>
+</div>
+<script>
+const wishes=[
+"🌷 Chúc bạn luôn xinh đẹp, mạnh khỏe và hạnh phúc!",
+"💖 Mong mọi điều tốt đẹp nhất sẽ đến với bạn.",
+"🌸 Chúc bạn luôn tự tin, rạng rỡ và yêu thương bản thân.",
+"🦋 Chúc bạn học tập, công việc thuận lợi và thành công.",
+"💐 Mong nụ cười luôn nở trên môi, niềm vui luôn ở bên bạn.",
+"👑 Chúc bạn tình đầy tim, tiền đầy túi",
+"❤️ Chúc bạn được yêu thương và trân trọng mỗi ngày.",
+"✨ Chúc ước mơ của bạn sớm trở thành hiện thực. 20/10 vui vẻ!"
+];
+let index=0, timer;
+function begin(){
+ clearInterval(timer);
+ index=0;
+ document.getElementById('start').textContent='💗 Lời chúc tiếp theo 💗';
+ document.getElementById('end').textContent='';
+ show();
+ timer=setInterval(()=>{
+   if(index<wishes.length) show();
+   else{
+     clearInterval(timer);
+     document.getElementById('wish').textContent=
+       '💖 Chúc mừng 20/10! Chúc bạn luôn hạnh phúc và rạng ngời! 💖';
+     document.getElementById('count').textContent='Gửi bạn ngàn yêu thương 🌹';
+     document.getElementById('end').textContent='🎆 💕 🎆 💕 🎆';
+     document.getElementById('start').textContent='🔄 Xem lại';
+   }
+ },3500);
+}
+function show(){
+ document.getElementById('wish').style.animation='none';
+ void document.getElementById('wish').offsetWidth;
+ document.getElementById('wish').style.animation='pop .8s';
+ document.getElementById('wish').textContent=wishes[index];
+ document.getElementById('count').textContent=
+  '💌 Lời chúc '+(index+1)+' / '+wishes.length;
+ index++;
+}
+function rain(){
+ const f=document.createElement('div');
+ f.className='flower';
+ f.textContent=['🌸','💗','🌷','✨','💕'][Math.floor(Math.random()*5)];
+ f.style.left=Math.random()*100+'vw';
+ f.style.fontSize=(18+Math.random()*22)+'px';
+ f.style.animationDuration=(5+Math.random()*6)+'s';
+ document.body.appendChild(f);
+ setTimeout(()=>f.remove(),12000);
+}
+setInterval(rain,250);
+</script>
+</body>
+</html>
